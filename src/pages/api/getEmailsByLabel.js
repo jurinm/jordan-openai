@@ -7,9 +7,9 @@ export default async function handler(
   try {
     const auth = new google.auth.OAuth2({
       clientId:
-        "631218548092-kvp3ug45tdae3m99bula52d50v0iokev.apps.googleusercontent.com",
-      clientSecret: "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",
-      redirectUri: "http://localhost:3000/auth/callback",
+        "",
+      clientSecret: "",
+      redirectUri: "",
     });
 
     // Установка учетных данных OAuth 2.0
