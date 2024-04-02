@@ -1,12 +1,15 @@
-import { SessionProvider } from "next-auth/react"
+import { AppProps } from 'next/app';
+import { SessionProvider } from 'next-auth/react';
+import "@/css/satoshi.css";
+import "@/css/style.css";
+import DefaultLayout from '@/components/Layouts/DefaultLayout';
 
-export default function App({
-    Component,
-    pageProps: { session, ...pageProps },
-}: any) {
-    return (
-        <SessionProvider session={session}>
-            <Component {...pageProps} />
-        </SessionProvider>
-    )
+function MyApp({ Component, pageProps }: AppProps) {
+  return (
+    <SessionProvider session={pageProps.session}>
+      <Component {...pageProps} />
+    </SessionProvider>
+  );
 }
+
+export default MyApp;

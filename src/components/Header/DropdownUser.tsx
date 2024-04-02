@@ -38,14 +38,16 @@ const DropdownUser = () => {
 
   return (
     !session ?
-      <button onClick={() => signIn('google')} className="flex w-full items-center justify-center gap-3.5 rounded-lg border border-stroke bg-gray p-4 hover:bg-opacity-50 dark:border-strokedark dark:bg-meta-4 dark:hover:bg-opacity-50">
+      <button
+        onClick={() => signIn('google', { callbackUrl: 'http://localhost:3000/', redirect: true })}
+        className="inline-flex items-center justify-center gap-2.5 rounded-md bg-black px-10 py-4 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
+      >
         <span>
           <svg
             width="20"
             height="20"
             viewBox="0 0 20 20"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
           >
             <g clipPath="url(#clip0_191_13499)">
               <path
@@ -72,8 +74,9 @@ const DropdownUser = () => {
             </defs>
           </svg>
         </span>
-        Sign up with Google
+        login with google
       </button> :
+
       <div className="relative">
         <Link
           ref={trigger}
@@ -83,21 +86,22 @@ const DropdownUser = () => {
         >
           <span className="hidden text-right lg:block">
             <span className="block text-sm font-medium text-black dark:text-white">
-              Thomas Anree
+              {session?.session?.user?.name}
             </span>
-            <span className="block text-xs">UX Designer</span>
+            <span className="block text-xs">{session?.session?.user?.email}</span>
           </span>
 
           <span className="h-12 w-12 rounded-full">
             <Image
               width={112}
               height={112}
-              src={"/images/user/user-01.png"}
+              src={session?.session?.user?.image || "/images/user/user-01.png"}
               style={{
                 width: "auto",
                 height: "auto",
               }}
               alt="User"
+              className="rounded-full"
             />
           </span>
 
@@ -142,7 +146,7 @@ const DropdownUser = () => {
                 fill=""
               />
             </svg>
-            Log Out
+            log out
           </button>
         </div>
       </div>

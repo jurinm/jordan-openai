@@ -84,7 +84,7 @@ const ChatGPT: React.FC = () => {
   }
 
   return (
-    <div className="col-span-12 pb-5 pt-7.5 rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-6 flex flex-col justify-between">
+    <div className="pb-5 pt-7.5 rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark w-full xl:w-1/2 flex flex-col justify-between">
       <h4 className="mb-6 px-5 sm:px-7.5 text-xl font-semibold text-black dark:text-white">
         your openai
       </h4>
