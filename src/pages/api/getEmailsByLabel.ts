@@ -1,24 +1,23 @@
 import { google } from "googleapis";
 import { NextApiRequest, NextApiResponse } from "next";
+import { getToken } from "next-auth/jwt";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
   try {
+    const { refreshToken, accessToken } = await getToken({ req });
+
     const auth = new google.auth.OAuth2({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     });
-
     // Установка учетных данных OAuth 2.0
-    if (
-      typeof req.query.access_token === "string" &&
-      typeof req.query.refresh_token === "string"
-    ) {
+    if (typeof refreshToken === "string" && typeof accessToken === "string") {
       auth.setCredentials({
-        access_token: req.query.access_token,
-        refresh_token: req.query.refresh_token,
+        access_token: accessToken,
+        refresh_token: refreshToken,
       });
     } else {
       console.log("Error: access_token and refresh_token must be strings");

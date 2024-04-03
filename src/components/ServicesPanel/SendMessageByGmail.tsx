@@ -1,34 +1,36 @@
-import React, { useCallback, useState, useEffect } from 'react';
-import Checkbox from '@mui/material/Checkbox';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import Button from '@mui/material/Button';
-import SendIcon from '@mui/icons-material/Send';
+import React, { useCallback, useState, useEffect } from "react";
+import Checkbox from "@mui/material/Checkbox";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import Button from "@mui/material/Button";
+import SendIcon from "@mui/icons-material/Send";
+import { useSession } from "next-auth/react";
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 const users = [
-  { name: 'Olga Vasylieva', address: "vasylieva@gmail.com" },
-  { name: 'Stefan Vasylieva', address: "stefan.vv@gmail.com" },
-  { name: 'Stef Vasylieva', address: "vas.stef@gmail.com" },
-  { name: 'Olga Vasylieva', address: "vasylieva@gmail.com" },
-  { name: 'Stefan Vasylieva', address: "stefan.vv@gmail.com" },
+  { name: "Olga Vasylieva", address: "vasylieva@gmail.com" },
+  { name: "Stefan Vasylieva", address: "stefan.vv@gmail.com" },
+  { name: "Stef Vasylieva", address: "vas.stef@gmail.com" },
+  { name: "Olga Vasylieva", address: "vasylieva@gmail.com" },
+  { name: "Stefan Vasylieva", address: "stefan.vv@gmail.com" },
 ];
 
 const SendMessageByGmail: React.FC = () => {
   const [emails, setEmails] = useState([]);
+  const { data: session } = useSession();
 
   useEffect(() => {
     async function fetchEmails() {
       try {
-        const response = await fetch('/api/getEmailsByLabel');
+        const response = await fetch("/api/getEmailsByLabel");
         const data = await response.json();
         setEmails(data);
       } catch (error) {
-        console.error('Error fetching emails:', error);
+        console.error("Error fetching emails:", error);
       }
     }
 
@@ -37,7 +39,7 @@ const SendMessageByGmail: React.FC = () => {
 
   return (
     <>
-      <p className='text-lg font-base mb-5'>send message by gmail</p>
+      <p className="font-base mb-5 text-lg">send message by gmail</p>
       <div className="flex flex-col gap-5">
         <Autocomplete
           multiple
@@ -53,12 +55,21 @@ const SendMessageByGmail: React.FC = () => {
                 style={{ marginRight: 8 }}
                 checked={selected}
               />
-              <p>{option.name} <span className='text-[#8a99af] ml-1 text-sm'>({option.address})</span></p>
+              <p>
+                {option.name}{" "}
+                <span className="ml-1 text-sm text-[#8a99af]">
+                  ({option.address})
+                </span>
+              </p>
             </li>
           )}
           style={{ width: "100%" }}
           renderInput={(params) => (
-            <TextField {...params} label="* to" helperText="who will this email be sent to?" />
+            <TextField
+              {...params}
+              label="* to"
+              helperText="who will this email be sent to?"
+            />
           )}
         />
         <Autocomplete
@@ -75,12 +86,21 @@ const SendMessageByGmail: React.FC = () => {
                 style={{ marginRight: 8 }}
                 checked={selected}
               />
-              <p>{option.name} <span className='text-[#8a99af] ml-1 text-sm'>({option.address})</span></p>
+              <p>
+                {option.name}{" "}
+                <span className="ml-1 text-sm text-[#8a99af]">
+                  ({option.address})
+                </span>
+              </p>
             </li>
           )}
           style={{ width: "100%" }}
           renderInput={(params) => (
-            <TextField {...params} label="cc" helperText="who should be cc'd on this email?" />
+            <TextField
+              {...params}
+              label="cc"
+              helperText="who should be cc'd on this email?"
+            />
           )}
         />
         <Autocomplete
@@ -97,12 +117,21 @@ const SendMessageByGmail: React.FC = () => {
                 style={{ marginRight: 8 }}
                 checked={selected}
               />
-              <p>{option.name} <span className='text-[#8a99af] ml-1 text-sm'>({option.address})</span></p>
+              <p>
+                {option.name}{" "}
+                <span className="ml-1 text-sm text-[#8a99af]">
+                  ({option.address})
+                </span>
+              </p>
             </li>
           )}
           style={{ width: "100%" }}
           renderInput={(params) => (
-            <TextField {...params} label="bcc" helperText="who should be bcc'd on this email?" />
+            <TextField
+              {...params}
+              label="bcc"
+              helperText="who should be bcc'd on this email?"
+            />
           )}
         />
         <TextField
@@ -131,12 +160,16 @@ const SendMessageByGmail: React.FC = () => {
         />
         <TextField
           label="* body"
-          className="resize-none w-full"
+          className="w-full resize-none"
           multiline
           rows={5}
         />
         <div className="flex justify-end">
-          <Button variant="contained" className='!bg-black' endIcon={<SendIcon />}>
+          <Button
+            variant="contained"
+            className="!bg-black"
+            endIcon={<SendIcon />}
+          >
             Send
           </Button>
         </div>
