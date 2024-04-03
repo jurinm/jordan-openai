@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import { google } from "googleapis";
 
 const GOOGLE_AUTHORIZATION_URL =
   "https://accounts.google.com/o/oauth2/v2/auth?" +
@@ -12,6 +13,8 @@ const GOOGLE_AUTHORIZATION_URL =
 
 async function refreshAccessToken(token) {
   try {
+    console.log("111111");
+
     const url =
       "https://oauth2.googleapis.com/token?" +
       new URLSearchParams({
@@ -34,14 +37,19 @@ async function refreshAccessToken(token) {
       throw refreshedTokens;
     }
 
-    return {
+    const updatedToken = {
       ...token,
       accessToken: refreshedTokens.access_token,
       accessTokenExpires: Date.now() + refreshedTokens.expires_in * 1000,
       refreshToken: refreshedTokens.refresh_token ?? token.refreshToken, // Fall back to old refresh token
     };
+
+    // После успешного обновления токена доступа отправляем запрос на получение сообщений
+    await getLatestGmailMessages(updatedToken.accessToken);
+
+    return updatedToken;
   } catch (error) {
-    console.log(error);
+    console.log("error22222", error);
 
     return {
       ...token,
@@ -91,6 +99,8 @@ export default NextAuth({
       ) {
         // Access token has expired, try to update it
         return refreshAccessToken(token);
+      } else {
+        console.log("444444");
       }
 
       return token;

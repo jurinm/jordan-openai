@@ -36,6 +36,8 @@ const DropdownUser = () => {
     return () => document.removeEventListener("keydown", keyHandler);
   });
 
+  // console.log(session)
+
   return !session ? (
     <button
       onClick={() =>

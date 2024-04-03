@@ -34,8 +34,8 @@ const SendMessageByGmail: React.FC = () => {
       }
     }
 
-    fetchEmails();
-  }, []);
+  //   fetchEmails();
+  // }, []);
 
   return (
     <>
