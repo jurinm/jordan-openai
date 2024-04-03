@@ -36,10 +36,12 @@ const DropdownUser = () => {
     return () => document.removeEventListener("keydown", keyHandler);
   });
 
+  // console.log(session)
+
   return (
     !session ?
       <button
-        onClick={() => signIn('google', { callbackUrl: 'http://localhost:3000/', redirect: true })}
+        onClick={() => signIn('google')}
         className="inline-flex items-center justify-center gap-2.5 rounded-md bg-black px-10 py-4 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
       >
         <span>
@@ -86,16 +88,16 @@ const DropdownUser = () => {
         >
           <span className="hidden text-right lg:block">
             <span className="block text-sm font-medium text-black dark:text-white">
-              {session?.session?.user?.name}
+              {/* {session?.session?.user?.name} */}
             </span>
-            <span className="block text-xs">{session?.session?.user?.email}</span>
+            {/* <span className="block text-xs">{session?.session?.user?.email}</span> */}
           </span>
 
           <span className="h-12 w-12 rounded-full">
             <Image
               width={112}
               height={112}
-              src={session?.session?.user?.image || "/images/user/user-01.png"}
+              src={"/images/user/user-01.png"}
               style={{
                 width: "auto",
                 height: "auto",

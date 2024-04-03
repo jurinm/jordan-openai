@@ -9,6 +9,7 @@ export default async function handler(
     const auth = new google.auth.OAuth2({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      redirectUri: "localhost:3000",
     });
 
     // Установка учетных данных OAuth 2.0
@@ -21,7 +22,6 @@ export default async function handler(
         refresh_token: req.query.refresh_token,
       });
     } else {
-      console.log("Error: access_token and refresh_token must be strings");
       // Обработка случаев, когда параметры access_token и refresh_token не являются строками
     }
 

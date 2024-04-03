@@ -21,19 +21,19 @@ const users = [
 const SendMessageByGmail: React.FC = () => {
   const [emails, setEmails] = useState([]);
 
-  useEffect(() => {
-    async function fetchEmails() {
-      try {
-        const response = await fetch('/api/getEmailsByLabel');
-        const data = await response.json();
-        setEmails(data);
-      } catch (error) {
-        console.error('Error fetching emails:', error);
-      }
-    }
+  // useEffect(() => {
+  //   async function fetchEmails() {
+  //     try {
+  //       const response = await fetch('/api/getEmailsByLabel');
+  //       const data = await response.json();
+  //       setEmails(data);
+  //     } catch (error) {
+  //       console.error('Error fetching emails:', error);
+  //     }
+  //   }
 
-    fetchEmails();
-  }, []);
+  //   fetchEmails();
+  // }, []);
 
   return (
     <>
